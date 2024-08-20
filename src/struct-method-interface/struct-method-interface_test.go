@@ -1,7 +1,6 @@
 package struct_method_interface
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -48,7 +47,6 @@ func TestArea(t *testing.T) {
 	checkArea := func(t testing.TB, shape ShapeArea, want float64) {
 		t.Helper()
 		got := shape.Area()
-		fmt.Println(got)
 		if got != want {
 			t.Errorf("got %.2f want %.2f", got, want)
 		}
