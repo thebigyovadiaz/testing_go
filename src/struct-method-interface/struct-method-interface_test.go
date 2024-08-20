@@ -77,43 +77,51 @@ func TestArea(t *testing.T) {
 			Height: 35.0,
 		}
 
-		want := 700.0
+		want := 350.0
 		checkArea(t, triangle, want)
 	})
 }
 
-func TestAreaCases(t *testing.T) {
+// Refactor test area
+func TestCasesAreas(t *testing.T) {
 	areaTests := []struct {
-		want  float64
-		shape ShapeArea
+		name    string
+		hasArea float64
+		shape   ShapeArea
 	}{
-		{100.0, RectangleAttr{10.0, 10.0}},
-		{78.53981633974483, CircleAttr{5.0}},
-		{700.0, TriangleAttr{20.0, 35.0}},
+		{"Rectangle", 100.0, RectangleAttr{10.0, 10.0}},
+		{"Circle", 78.53981633974483, CircleAttr{5.0}},
+		{"Triangle", 350.0, TriangleAttr{20.0, 35.0}},
 	}
 
 	for _, tt := range areaTests {
-		got := tt.shape.Area()
-		if got != tt.want {
-			t.Errorf("got %.2f, want %.2f", got, tt.want)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			if got != tt.hasArea {
+				t.Errorf("%#v got %.2f, want %.2f", tt.shape, got, tt.hasArea)
+			}
+		})
 	}
 }
 
-func TestPerimeterCases(t *testing.T) {
+// Refactor test perimeter
+func TestCasesPerimeters(t *testing.T) {
 	parimeterTests := []struct {
-		want  float64
-		shape ShapePerimeter
+		name         string
+		hasPerimeter float64
+		shape        ShapePerimeter
 	}{
-		{40.0, RectangleAttr{10.0, 10.0}},
-		{62.83185307179586, CircleAttr{10.0}},
-		{27.6619037896906, TriangleAttr{6.0, 10.0}},
+		{"Rectangle", 40.0, RectangleAttr{10.0, 10.0}},
+		{"Circle", 62.83185307179586, CircleAttr{10.0}},
+		{"Triangle", 27.6619037896906, TriangleAttr{6.0, 10.0}},
 	}
 
 	for _, tt := range parimeterTests {
-		got := tt.shape.Perimeter()
-		if got != tt.want {
-			t.Errorf("got %.2f, want %.2f", got, tt.want)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Perimeter()
+			if got != tt.hasPerimeter {
+				t.Errorf("%#v got %.2f, want %.2f", tt.shape, got, tt.hasPerimeter)
+			}
+		})
 	}
 }
