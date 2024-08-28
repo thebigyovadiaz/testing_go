@@ -35,7 +35,7 @@ func (s *SpyCountdownOperations) Sleep() {
 	s.Calls = append(s.Calls, sleep)
 }
 
-func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
+func (s *SpyCountdownOperations) Write() (n int, err error) {
 	s.Calls = append(s.Calls, write)
 	return
 }
@@ -63,9 +63,9 @@ type Sleeper interface {
 
 func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
-		fmt.Fprintln(out, i)
+		_, _ = fmt.Fprintln(out, i)
 		sleeper.Sleep()
 	}
 
-	fmt.Fprint(out, finalWord)
+	_, _ = fmt.Fprint(out, finalWord)
 }
